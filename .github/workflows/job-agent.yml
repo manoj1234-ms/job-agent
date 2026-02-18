@@ -1,0 +1,114 @@
+name: 🤖 AI/ML Job Agent
+
+on:
+  schedule:
+    # Runs every 6 hours (4 times a day)
+    - cron: '0 2,8,14,20 * * *'   # UTC: 7:30AM, 1:30PM, 7:30PM, 1:30AM IST
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  scout-jobs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+          playwright install-deps
+
+      - name: 📝 Create Config from Secrets
+        run: |
+          cat > config.yaml << 'EOF'
+          user:
+            name: "${{ secrets.USER_NAME }}"
+            github_username: "${{ secrets.GITHUB_USERNAME }}"
+            resume_path: "manoj_ml.pdf"
+            resume_text_path: "resume_text.txt"
+            email: "${{ secrets.USER_EMAIL }}"
+            phone: "${{ secrets.USER_PHONE }}"
+            linkedin: "${{ secrets.USER_LINKEDIN }}"
+            github: "${{ secrets.USER_GITHUB }}"
+
+          jobs:
+            target_roles:
+              - "Data Science Intern"
+              - "ML Intern"
+              - "AI Intern"
+              - "Machine Learning Intern"
+              - "Data Analyst Intern"
+              - "Data Scientist"
+              - "ML Engineer"
+              - "AI Engineer"
+              - "NLP Engineer"
+              - "Computer Vision Intern"
+              - "GenAI Intern"
+              - "SDE Intern"
+            include_intern: true
+            batch: "2027"
+            locations:
+              - "Remote"
+              - "India"
+              - "Bangalore"
+              - "Hyderabad"
+            platforms:
+              - "linkedin"
+              - "indeed"
+
+          search:
+            daily_limit: 10
+            min_match_score: 0.3
+
+          notifications:
+            alert_method: "popup"
+            popup_title: "Job Agent Alert"
+
+          storage:
+            type: "json"
+            path: "data/applications.json"
+
+          telegram:
+            enabled: true
+            bot_token: "${{ secrets.TELEGRAM_BOT_TOKEN }}"
+            chat_id: "${{ secrets.TELEGRAM_CHAT_ID }}"
+
+          scheduler:
+            enabled: false
+
+          continuous:
+            enabled: false
+
+          auto_apply:
+            enabled: false
+          EOF
+
+      - name: 📁 Create Data Directories
+        run: |
+          mkdir -p data logs tailored_resumes
+
+      - name: 🚀 Run Job Agent
+        run: python agent.py --test
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: 📊 Upload Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: job-results-${{ github.run_number }}
+          path: |
+            data/
+            tailored_resumes/
+            logs/
+          retention-days: 7

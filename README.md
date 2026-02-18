@@ -51,10 +51,40 @@ A high-performance automated job radar and AI-powered resume tailoring system de
    ```
 
 ## 🎯 Target Roles
-- Data Scientist / Data Analyst / intern
+- Data Scientist / Data Analyst / Intern
 - ML Engineer / AI Engineer
 - Computer Vision / NLP Specialist
 - SDE Intern (AI-focused)
+
+## ☁️ Deploy on GitHub Actions (Run 24/7 for FREE)
+
+Your agent can run automatically every 6 hours on GitHub's cloud — no laptop needed!
+
+### Step 1: Add Secrets to your GitHub Repo
+
+Go to **Settings → Secrets and variables → Actions → New repository secret** and add:
+
+| Secret Name | Value |
+|---|---|
+| `USER_NAME` | Manoj Sharma |
+| `USER_EMAIL` | your@email.com |
+| `USER_PHONE` | +91-XXXXXXXXXX |
+| `USER_LINKEDIN` | linkedin.com/in/yourprofile |
+| `USER_GITHUB` | github.com/yourprofile |
+| `GITHUB_USERNAME` | manoj1234-ms |
+| `TELEGRAM_BOT_TOKEN` | Your Telegram Bot Token |
+| `TELEGRAM_CHAT_ID` | Your Telegram Chat ID |
+
+### Step 2: Enable the Workflow
+
+Go to the **Actions** tab in your GitHub repo and enable workflows. The agent will automatically run every 6 hours.
+
+### Step 3: Manual Trigger (Optional)
+
+You can also trigger the agent manually anytime:
+1. Go to **Actions** tab
+2. Select **🤖 AI/ML Job Agent**
+3. Click **Run workflow**
 
 ---
 *Built with ❤️ for Manoj Sharma's AI Career Journey.*
