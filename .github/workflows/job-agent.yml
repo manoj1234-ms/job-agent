@@ -32,7 +32,7 @@ jobs:
           cat > config.yaml << 'EOF'
           user:
             name: "${{ secrets.USER_NAME }}"
-            github_username: "${{ secrets.GITHUB_USERNAME }}"
+            github_username: "${{ secrets.GH_USERNAME }}"
             resume_path: "manoj_ml.pdf"
             resume_text_path: "resume_text.txt"
             email: "${{ secrets.USER_EMAIL }}"

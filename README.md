@@ -71,7 +71,7 @@ Go to **Settings → Secrets and variables → Actions → New repository secret
 | `USER_PHONE` | +91-XXXXXXXXXX |
 | `USER_LINKEDIN` | linkedin.com/in/yourprofile |
 | `USER_GITHUB` | github.com/yourprofile |
-| `GITHUB_USERNAME` | manoj1234-ms |
+| `GH_USERNAME` | manoj1234-ms |
 | `TELEGRAM_BOT_TOKEN` | Your Telegram Bot Token |
 | `TELEGRAM_CHAT_ID` | Your Telegram Chat ID |
 
