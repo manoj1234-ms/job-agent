@@ -1,0 +1,47 @@
+user:
+  name: "Your Name"
+  github_username: "your_github"
+  resume_path: "your_resume.pdf"
+  resume_text_path: "resume_text.txt"
+  email: "your@email.com"
+  phone: "+91-XXXXXXXXXX"
+  linkedin: "linkedin.com/in/yourprofile"
+  github: "github.com/yourprofile"
+
+jobs:
+  target_roles:
+    - "Data Scientist"
+    - "ML Engineer"
+    - "AI Engineer"
+  include_intern: true
+  batch: "2027"
+  locations:
+    - "Remote"
+    - "India"
+  platforms:
+    - "linkedin"
+    - "indeed"
+
+search:
+  daily_limit: 10
+  min_match_score: 0.3
+
+notifications:
+  alert_method: "popup"
+  popup_title: "Job Agent Alert"
+
+openai:
+  api_key: "YOUR_OPENAI_API_KEY"
+
+telegram:
+  enabled: true
+  bot_token: "YOUR_BOT_TOKEN"
+  chat_id: "YOUR_CHAT_ID"
+
+scheduler:
+  enabled: true
+  run_time: "08:00"
+
+continuous:
+  enabled: true
+  interval_hours: 4
