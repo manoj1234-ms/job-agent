@@ -124,8 +124,9 @@ class JobAgent:
         ats_score = ats_result['total']
         print(f"   FAANG ATS Score: {ats_score:.0f}/100")
         
-        # Send Telegram alert with Link
-        self.telegram.send_job_alert(job, ats_score / 100)
+        # Send Telegram alert with Link and Networking Hook
+        networking_hook = ats_result.get('networking_hook', '')
+        self.telegram.send_job_alert(job, ats_score / 100, networking_hook=networking_hook)
         
         # Step 3: CUSTOM LOGIC - If ATS < 90, create a tailored resume
         tailored_resume_path = None

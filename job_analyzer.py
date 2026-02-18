@@ -126,8 +126,37 @@ class JobAnalyzer:
             },
             'matched_skills': matched_skills,
             'matching_projects': matching_projects,
-            'job_type': job_type
+            'job_type': job_type,
+            'networking_hook': self._generate_networking_hook(job_type, job_description, matching_projects)
         }
+
+    def _generate_networking_hook(self, job_type: str, job_description: str, matching_projects: List[Dict]) -> str:
+        """Generate a personalized LinkedIn networking hook"""
+        # User details for the hook
+        batch = "2027"
+        major = "CSE"
+        primary_project = "VetNet AI" # Default strong project
+        
+        if matching_projects:
+            # Use the best matching project if available
+            primary_project = matching_projects[0].get('name', primary_project)
+            
+        role_name = "ML Intern" if job_type == 'ML Engineer' else "Data/Software Intern"
+        if 'intern' in job_description.lower():
+            role_name = "Intern"
+            
+        hook = f"Hi [Name], I'm a {batch} batch {major} student interested in the {role_name} role. "
+        hook += f"I've built {primary_project}, which handles similar tech like "
+        
+        if job_type == 'ML Engineer':
+            hook += "PyTorch and FastAPI telemetry."
+        elif job_type == 'Data Analyst':
+            hook += "predictive modeling and data pipelines."
+        else:
+            hook += "REST APIs and system architecture."
+            
+        hook += " I'd love to connect and learn more about the team's work!"
+        return hook
     
     def _calculate_role_match_score(self, job_description: str, job_type: str) -> float:
         """Role Match (RM) - How well the role matches"""

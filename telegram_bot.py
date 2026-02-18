@@ -53,7 +53,7 @@ class TelegramNotifier:
             logger.error(f"Telegram document error: {e}")
             return False
             
-    def send_job_alert(self, job: dict, match_score: float) -> bool:
+    def send_job_alert(self, job: dict, match_score: float, networking_hook: str = "") -> bool:
         platform = job.get('platform', 'Job Board')
         company = job.get('company', 'Company')
         title = job.get('title', 'Position')
@@ -69,11 +69,21 @@ class TelegramNotifier:
 📍 {location}
 📊 Match: {match_score:.0%}
 🔗 <a href="{url}">Apply Here</a>
-
-<i>Source: {platform}</i>
 """
         if salary:
             message += f"\n💰 {salary}"
+        
+        message += f"\n<i>Source: {platform}</i>"
+        
+        # LinkedIn Networking Hook
+        if networking_hook:
+            message += f"""
+
+<b>🤝 LinkedIn Networking Hook</b>
+<i>Copy-paste this to connect with {company} employees:</i>
+
+<code>{networking_hook}</code>
+"""
             
         return self.send_message(message)
         
